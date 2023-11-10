@@ -1,16 +1,17 @@
+// Step 1
 UENUM(BlueprintType)
 enum class ECharacterState : uint8
 {
-    Idle UMETA(DisplayName = "Idle"),
-    Walking UMETA(DisplayName = "Walking"),
     Blocking UMETA(DisplayName = "Blocking"),
     // Add more states as needed
 };
 
 
+// Step 2
 UPROPERTY(BlueprintReadOnly)
 ECharacterState CharacterState;
 
+// Step 3
 void AYourCharacter::StartBlocking()
 {
     CharacterState = ECharacterState::Blocking;
@@ -23,11 +24,13 @@ void AYourCharacter::StopBlocking()
     // Add logic to re-enable movement or actions when blocking stops
 }
 
+
+// Step4
 // Example: Bind these functions to input events
 BindAction("Block", IE_Pressed, this, &AYourCharacter::StartBlocking);
 BindAction("Block", IE_Released, this, &AYourCharacter::StopBlocking);
 
-
+// Step 5
 void AYourCharacter::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
