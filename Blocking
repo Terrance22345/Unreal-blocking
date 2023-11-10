@@ -1,0 +1,49 @@
+UENUM(BlueprintType)
+enum class ECharacterState : uint8
+{
+    Idle UMETA(DisplayName = "Idle"),
+    Walking UMETA(DisplayName = "Walking"),
+    Blocking UMETA(DisplayName = "Blocking"),
+    // Add more states as needed
+};
+
+
+UPROPERTY(BlueprintReadOnly)
+ECharacterState CharacterState;
+
+void AYourCharacter::StartBlocking()
+{
+    CharacterState = ECharacterState::Blocking;
+    // Add logic to disable movement or any specific actions while blocking
+}
+
+void AYourCharacter::StopBlocking()
+{
+    CharacterState = ECharacterState::Idle; // or any other appropriate state
+    // Add logic to re-enable movement or actions when blocking stops
+}
+
+// Example: Bind these functions to input events
+BindAction("Block", IE_Pressed, this, &AYourCharacter::StartBlocking);
+BindAction("Block", IE_Released, this, &AYourCharacter::StopBlocking);
+
+
+void AYourCharacter::Tick(float DeltaTime)
+{
+    Super::Tick(DeltaTime);
+
+    // Example: Adjust behavior based on character state
+    switch (CharacterState)
+    {
+        case ECharacterState::Idle:
+            // Handle idle state behavior
+            break;
+        case ECharacterState::Walking:
+            // Handle walking state behavior
+            break;
+        case ECharacterState::Blocking:
+            // Handle blocking state behavior
+            break;
+        // Handle other states as needed
+    }
+}
